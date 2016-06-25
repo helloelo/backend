@@ -13,7 +13,7 @@ class Oauth extends Command
 
     public function performAction()
     {
-        return array('bich' => 'one');
+        return array('bich' => 'one', 'get' => $_GET);
     }
 
 
