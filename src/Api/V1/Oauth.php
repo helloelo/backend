@@ -48,7 +48,7 @@ grant_type=authorization_code
             );
             $context = stream_context_create($opts);
             $result = file_get_contents($url, false, $context);
-            $jsonResult = json_decode($result);
+            $jsonResult = json_decode($result, true);
             trigger_error($result);
 
             //https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=youraccess_token
