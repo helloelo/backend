@@ -48,8 +48,15 @@ grant_type=authorization_code
             );
             $context = stream_context_create($opts);
             $result = file_get_contents($url, false, $context);
+            $jsonResult = json_decode($result);
             trigger_error($result);
-            return $result;
+
+            //https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=youraccess_token
+            $info = file_get_contents('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='
+                . $jsonResult['access_token']);
+
+            trigger_error($info);
+            return $info;
         }
 
         return array('bich' => 'one', 'get' => $_GET);
