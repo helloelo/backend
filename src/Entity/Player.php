@@ -9,9 +9,10 @@ use Yaoi\Database\Entity;
 class Player extends Entity
 {
     public $idPlayer;
+    public $fkOrganization;
     public $name;
     public $email;
-    public $idOrganization;
+    public $picture;
 
     /**
      * @param \stdClass|static $columns
@@ -22,7 +23,7 @@ class Player extends Entity
         $columns->fkOrganization = Organization::columns()->idOrganization;
         $columns->name = Column::STRING + Column::NOT_NULL;
         $columns->email = Column::STRING + Column::NOT_NULL;
-
+        $columns->picture = Column::STRING + Column::NOT_NULL;
     }
 
     static function setUpTable(\Yaoi\Database\Definition\Table $table, $columns)
