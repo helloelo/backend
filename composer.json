@@ -4,7 +4,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Helloelo\\": "src/"
+            "Helloelo\\": "src/",
+            "Yaoi\\Twbs\\": "src-twbs/"
         }
     }
 }
