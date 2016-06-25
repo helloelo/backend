@@ -19,7 +19,7 @@ class Organization extends Entity
     {
         $columns->idOrganization = Column::AUTO_ID;
         $columns->name = Column::STRING + Column::NOT_NULL;
-        $columns->domain = Column::STRING + Column::NOT_NULL;
+        $columns->domain = Column::create(Column::STRING + Column::NOT_NULL)->setUnique();
     }
 
     static function setUpTable(\Yaoi\Database\Definition\Table $table, $columns)

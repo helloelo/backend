@@ -2,6 +2,8 @@
 
 namespace Helloelo\Api\V1;
 
+use Helloelo\Entity\Organization;
+use Helloelo\Entity\Player;
 use Yaoi\Command;
 use Yaoi\Command\Definition;
 
@@ -56,7 +58,39 @@ grant_type=authorization_code
                 . $jsonResult['access_token']);
 
             trigger_error($info);
-            return $info;
+
+            $jsonInfo = json_decode($info, true);
+            /*
+             * {
+ "id": "100745951330300743111",
+ "email": "vearutop@gmail.com",
+ "verified_email": true,
+ "name": "Vea Rooftop",
+ "given_name": "Vea",
+ "family_name": "Rooftop",
+ "link": "https://plus.google.com/+VeaRooftop",
+ "picture": "https://lh4.googleusercontent.com/-IWvYl6hP4nU/AAAAAAAAAAI/AAAAAAAADc8/8EQx-BHK_vI/photo.jpg",
+ "gender": "male",
+ "locale": "ru"
+}
+             */
+            $email = $jsonInfo['email'];
+            $organizationDomain = explode('@', $email);
+            $organizationDomain = $organizationDomain[1];
+
+            $organization = new Organization();
+            $organization->name = $organizationDomain;
+            $organization->domain = $organizationDomain;
+            $organization->findOrSave();
+
+            $player = new Player();
+            $player->name = $jsonInfo['name'];
+            $player->picture = $jsonInfo['picture'];
+            $player->email = $email;
+            $player->fkOrganization = $organization->idOrganization;
+            $player->findOrSave();
+
+            return $player->idPlayer;
         }
 
         return array('bich' => 'one', 'get' => $_GET);
