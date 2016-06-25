@@ -3,6 +3,12 @@
 namespace Helloelo\Command;
 
 
+use Helloelo\Entity\Elo;
+use Helloelo\Entity\Game;
+use Helloelo\Entity\Match;
+use Helloelo\Entity\Notification;
+use Helloelo\Entity\Organization;
+use Helloelo\Entity\Player;
 use Helloelo\Entity\User;
 use Yaoi\Command;
 use Yaoi\Command\Definition;
@@ -26,7 +32,12 @@ class Migrate extends Command
     {
         /** @var Table[] $tables */
         $tables = array(
-            User::table(),
+            Elo::table(),
+            Game::table(),
+            Match::table(),
+            Notification::table(),
+            Organization::table(),
+            Player::table(),
         );
 
         $log = new Log('colored-stdout');
