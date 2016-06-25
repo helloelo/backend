@@ -22,7 +22,7 @@ class Player extends Entity
         $columns->idPlayer = Column::AUTO_ID;
         $columns->fkOrganization = Organization::columns()->idOrganization;
         $columns->name = Column::STRING + Column::NOT_NULL;
-        $columns->email = Column::STRING + Column::NOT_NULL;
+        $columns->email = Column::create(Column::STRING + Column::NOT_NULL)->setUnique();
         $columns->picture = Column::STRING + Column::NOT_NULL;
     }
 
