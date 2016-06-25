@@ -48,6 +48,7 @@ grant_type=authorization_code
             );
             $context = stream_context_create($opts);
             $result = file_get_contents($url, false, $context);
+            trigger_error($result);
             return $result;
         }
 
