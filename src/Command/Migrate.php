@@ -9,7 +9,7 @@ use Helloelo\Entity\Match;
 use Helloelo\Entity\Notification;
 use Helloelo\Entity\Organization;
 use Helloelo\Entity\Player;
-use Helloelo\Entity\User;
+use Helloelo\Entity\Session;
 use Yaoi\Command;
 use Yaoi\Command\Definition;
 use Yaoi\Database\Definition\Table;
@@ -38,6 +38,7 @@ class Migrate extends Command
             Notification::table(),
             Organization::table(),
             Player::table(),
+            Session::table(),
         );
 
         $log = new Log('colored-stdout');

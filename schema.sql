@@ -137,7 +137,8 @@ CREATE TABLE `organization` (
   `id_organization` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `domain` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_organization`)
+  PRIMARY KEY (`id_organization`),
+  UNIQUE KEY `unique_domain` (`domain`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -162,7 +163,9 @@ CREATE TABLE `player` (
   `fk_organization` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `picture` varchar(255) NOT NULL,
   PRIMARY KEY (`id_player`),
+  UNIQUE KEY `unique_email` (`email`),
   KEY `fk_player_fk_organization_organization_id_organization` (`fk_organization`),
   CONSTRAINT `fk_player_fk_organization_organization_id_organization` FOREIGN KEY (`fk_organization`) REFERENCES `organization` (`id_organization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -176,6 +179,32 @@ LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `session`
+--
+
+DROP TABLE IF EXISTS `session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `session` (
+  `token` varchar(255) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  PRIMARY KEY (`token`),
+  UNIQUE KEY `unique_token` (`token`),
+  KEY `fk_session_player_id_player_id_player` (`player_id`),
+  CONSTRAINT `fk_session_player_id_player_id_player` FOREIGN KEY (`player_id`) REFERENCES `player` (`id_player`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `session`
+--
+
+LOCK TABLES `session` WRITE;
+/*!40000 ALTER TABLE `session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `session` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -186,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-25 17:51:56
+-- Dump completed on 2016-06-26  5:10:25
