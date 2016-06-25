@@ -3,7 +3,7 @@
 namespace Helloelo\Api;
 
 
-use Helloelo\Api\V1\BichOne;
+use Helloelo\Api\V1\Oauth;
 use Yaoi\Command;
 use Yaoi\Command\Definition;
 
@@ -20,7 +20,10 @@ class V1 extends Command
      */
     static function setUpDefinition(Definition $definition, $options)
     {
-        $options->action = Command\Option::create()->addToEnum(BichOne::definition());
+        $options->action = Command\Option::create()
+            ->setIsUnnamed()
+            ->addToEnum(Oauth::definition(), 'oauth');
+
     }
 
     public function performAction()

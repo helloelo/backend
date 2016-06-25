@@ -3,21 +3,42 @@
 namespace Helloelo\Web;
 
 use Helloelo\Api\V1;
+use Yaoi\Command;
 use Yaoi\Command\Application;
 use Yaoi\Command\Definition;
+use Yaoi\Database\Definition\Exception;
+use Yaoi\Undefined;
 
-class Index extends Application
+class Index extends Command
 {
-    public $v1;
+    /**
+     * @var Command
+     */
+    public $action;
 
     /**
-     * @param Definition $definition
-     * @param \stdClass|static $commandDefinitions
+     * Required setup option types in provided options object
+     * @param $definition Definition
+     * @param $options static|\stdClass
      */
-    static function setUpCommands(Definition $definition, $commandDefinitions)
+    static function setUpDefinition(Definition $definition, $options)
     {
-        $commandDefinitions->v1 = V1::definition();
+        $options->action = Command\Option::create()
+            ->setDescription('Root action')
+            ->setIsUnnamed()
+            //->addToEnum(V1::definition(), '')
+            ->addToEnum(V1::definition(), 'v1');
+
+        $definition->description = 'Helloelo, bich!';
     }
 
+    public function performAction()
+    {
+        try {
+            $this->action->performAction();
+        } catch (Exception $e) {
+            var_dump($e->query);
+        }
+    }
 
 }

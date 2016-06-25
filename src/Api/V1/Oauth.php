@@ -5,7 +5,7 @@ namespace Helloelo\Api\V1;
 use Yaoi\Command;
 use Yaoi\Command\Definition;
 
-class BichOne extends Command
+class Oauth extends Command
 {
     static function setUpDefinition(Definition $definition, $options)
     {
