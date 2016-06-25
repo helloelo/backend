@@ -18,8 +18,8 @@ class Oauth extends Command
     public function performAction()
     {
         if (isset($_GET['code'])) {
-            //$url = 'https://accounts.google.com/o/oauth2/token';
-            $url = 'https://www.googleapis.com/oauth2/v4/token';
+            $url = 'https://accounts.google.com/o/oauth2/token';
+            //$url = 'https://www.googleapis.com/oauth2/v4/token';
 
             /*
              * POST /oauth2/v4/token HTTP/1.1
