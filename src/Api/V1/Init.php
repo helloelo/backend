@@ -24,7 +24,19 @@ class Init extends AuthRequired
     {
         $player = Player::findByPrimaryKey($this->playerId);
         $organization = Organization::findByPrimaryKey($player->fkOrganization);
-        return array('player' => $player->toArray(), 'organization' => $organization->toArray());
+        return self::makeResponse($player, $organization);
+    }
+
+
+    public static function makeResponse(Player $player, Organization $organization)
+    {
+        return array(
+            'player_id' => $player->idPlayer,
+            'name' => $player->name,
+            'email' => $player->email,
+            'organization_id' => $organization->idOrganization,
+            'organization' => $organization->name,
+        );
     }
 
 

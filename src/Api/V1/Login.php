@@ -98,10 +98,7 @@ grant_type=authorization_code
 
             setcookie(AuthRequired::TOKEN, $session->token, time() + 60 * 60 * 24 * 30, '/');
 
-            return array(
-                'player' => $player->toArray(),
-                'organization' => $organization->toArray(),
-            );
+            return Init::makeResponse($player, $organization);
         }
 
         return array('bich' => 'one', 'get' => $_GET);
