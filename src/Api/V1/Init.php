@@ -32,6 +32,7 @@ class Init extends AuthRequired
     {
         return array(
             'player_id' => $player->idPlayer,
+            'player_picture' => $player->picture,
             'name' => $player->name,
             'email' => $player->email,
             'organization_id' => $organization->idOrganization,
