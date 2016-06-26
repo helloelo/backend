@@ -4,6 +4,7 @@ namespace Helloelo\Entity;
 
 
 use Yaoi\Database\Definition\Column;
+use Yaoi\Database\Definition\Index;
 use Yaoi\Database\Definition\Table;
 use Yaoi\Database\Entity;
 
@@ -32,9 +33,13 @@ type Game struct {
         $columns->name = Column::STRING + Column::NOT_NULL;
     }
 
+    /**
+     * @param Table $table
+     * @param \stdClass|static $columns
+     */
     static function setUpTable(\Yaoi\Database\Definition\Table $table, $columns)
     {
-        $table->setSchemaName('game');
+        $table->setSchemaName('game')->addIndex(Index::TYPE_UNIQUE, $columns->fkOrganization, $columns->name);
     }
 
 }

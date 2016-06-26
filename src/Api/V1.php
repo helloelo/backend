@@ -4,6 +4,7 @@ namespace Helloelo\Api;
 
 
 use Helloelo\Api\V1\AuthRequired;
+use Helloelo\Api\V1\Games;
 use Helloelo\Api\V1\Init;
 use Helloelo\Api\V1\Login;
 use Helloelo\Entity\Session;
@@ -27,6 +28,7 @@ class V1 extends Command
             ->setIsUnnamed()
             ->addToEnum(Login::definition(), 'login')
             ->addToEnum(Init::definition(), 'init')
+            ->addToEnum(Games::definition(), 'games')
         ;
 
     }
@@ -43,7 +45,7 @@ class V1 extends Command
                     throw new ClientException("BAd session token");
                 }
                 $this->action->playerId = $session->playerId;
-                
+
             }
             $result = $this->action->performAction();
         }
