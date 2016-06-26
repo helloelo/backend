@@ -3,7 +3,8 @@
 namespace Helloelo\Api\V1;
 
 
-use Helloelo\Api\ClientException;
+use Helloelo\Entity\Organization;
+use Helloelo\Entity\Player;
 use Yaoi\Command;
 use Yaoi\Command\Definition;
 
@@ -21,11 +22,9 @@ class Init extends AuthRequired
 
     public function performAction()
     {
-        if (!isset($_COOKIE['session_id'])) {
-            throw new ClientException('Missing session id');
-        }
-        
-        $this->sessionId = $_COOKIE['session_id'];
+        $player = Player::findByPrimaryKey($this->playerId);
+        $organization = Organization::findByPrimaryKey($player->fkOrganization);
+        return array('player' => $player->toArray(), 'organization' => $organization->toArray());
     }
 
 
