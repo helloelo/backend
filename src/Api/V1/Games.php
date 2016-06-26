@@ -3,13 +3,13 @@
 namespace Helloelo\Api\V1;
 
 use Helloelo\Entity\Game;
+use Helloelo\Entity\Organization;
 use Helloelo\Entity\Player;
 use Yaoi\Command;
 use Yaoi\Command\Definition;
 
-class Games extends Command
+class Games extends AuthRequired
 {
-    public $organizationId;
 
     /**
      * @param Definition $definition
@@ -17,11 +17,13 @@ class Games extends Command
      */
     static function setUpDefinition(Definition $definition, $options)
     {
-        $options->organizationId = Command\Option::create()->setType()->setIsRequired();
     }
 
     public function performAction()
     {
+        $player = Player::findByPrimaryKey($this->playerId);
+        $organization = Organization::findByPrimaryKey($player->fkOrganization);
+
         $namez = array(
             'Rock, paper, scissor',
             'Street Fighter',
@@ -34,7 +36,7 @@ class Games extends Command
         foreach ($namez as $name) {
             $game = new Game();
             $game->name = $name;
-            $game->fkOrganization = $this->organizationId;
+            $game->fkOrganization = $organization->idOrganization;
             $game->findOrSave();
 
             $result []= $game->toArray();
