@@ -112,7 +112,7 @@ grant_type=authorization_code
                 'response_type' => 'code',
                 'client_id' => self::$clientId,
                 'redirect_uri' => 'http://helloelo.tk/v1/login',
-                'scope' => 'email,profile',
+                'scope' => 'email profile',
                 'prompt' => 'select_account',
             );
             $url .= http_build_query($query);
