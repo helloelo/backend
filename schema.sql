@@ -54,7 +54,7 @@ CREATE TABLE `game` (
   `fk_organization` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id_game`),
-  KEY `fk_game_fk_organization_organization_id_organization` (`fk_organization`),
+  UNIQUE KEY `unique_fk_organization_name` (`fk_organization`,`name`),
   CONSTRAINT `fk_game_fk_organization_organization_id_organization` FOREIGN KEY (`fk_organization`) REFERENCES `organization` (`id_organization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -113,7 +113,10 @@ CREATE TABLE `notification` (
   `id_notification` int(11) NOT NULL AUTO_INCREMENT,
   `notification_type` int(11) NOT NULL,
   `accepted` int(11) NOT NULL,
-  PRIMARY KEY (`id_notification`)
+  `fk_player` int(11) NOT NULL,
+  PRIMARY KEY (`id_notification`),
+  KEY `fk_notification_fk_player_player_id_player` (`fk_player`),
+  CONSTRAINT `fk_notification_fk_player_player_id_player` FOREIGN KEY (`fk_player`) REFERENCES `player` (`id_player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -215,4 +218,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26  5:10:25
+-- Dump completed on 2016-06-27 13:32:51
