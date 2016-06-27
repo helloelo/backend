@@ -50,13 +50,13 @@ grant_type=authorization_code
                 )
             );
             $context = stream_context_create($opts);
-            $result = file_get_contents($url, false, $context);
-            $jsonResult = json_decode($result, true);
+            $token = file_get_contents($url, false, $context);
+            $jsonToken = json_decode($token, true);
             //trigger_error($result);
 
             //https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=youraccess_token
             $info = file_get_contents('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='
-                . $jsonResult['access_token']);
+                . $jsonToken['access_token']);
 
             //trigger_error($info);
 
@@ -99,8 +99,10 @@ grant_type=authorization_code
             setcookie(AuthRequired::TOKEN, $session->token, time() + 60 * 60 * 24 * 30, '/');
 
             $result = Init::makeResponse($player, $organization);
-            $result['token'] = $jsonResult;
+            $result['token'] = $jsonToken;
             $result['info'] = $jsonInfo;
+            $result['token_raw'] = $token;
+            $result['info_raw'] = $info;
             return $result;
         } else {
             $url = 'https://accounts.google.com/o/oauth2/v2/auth?';
