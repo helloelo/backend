@@ -21,8 +21,8 @@ class Login extends Command
     public function performAction()
     {
         if (isset($_GET['code'])) {
-            $url = 'https://accounts.google.com/o/oauth2/token';
-            //$url = 'https://www.googleapis.com/oauth2/v4/token';
+            //$url = 'https://accounts.google.com/o/oauth2/token';
+            $url = 'https://www.googleapis.com/oauth2/v4/token';
 
             /*
              * POST /oauth2/v4/token HTTP/1.1
@@ -51,6 +51,7 @@ grant_type=authorization_code
             );
             $context = stream_context_create($opts);
             $token = file_get_contents($url, false, $context);
+            $tokenHeaders = $http_response_header;
             $jsonToken = json_decode($token, true);
             //trigger_error($result);
 
@@ -101,6 +102,7 @@ grant_type=authorization_code
             $result = Init::makeResponse($player, $organization);
             $result['token'] = $jsonToken;
             $result['info'] = $jsonInfo;
+            $result['token_headers'] = $tokenHeaders;
             $result['token_raw'] = $token;
             $result['info_raw'] = $info;
             return $result;
@@ -110,9 +112,7 @@ grant_type=authorization_code
                 'response_type' => 'code',
                 'client_id' => self::$clientId,
                 'redirect_uri' => 'http://helloelo.tk/v1/login',
-                'scope' => 'email',
-                'state' => '',
-                'access_type' => 'online',
+                'scope' => 'email,profile',
                 'prompt' => 'select_account',
             );
             $url .= http_build_query($query);

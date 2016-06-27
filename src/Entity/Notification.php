@@ -11,6 +11,7 @@ class Notification extends Entity
 {
     public $idNotification;
     public $idNotificationType;
+    public $fkPlayer;
     public $accepted;
 
     /**
@@ -19,6 +20,7 @@ class Notification extends Entity
     static function setUpColumns($columns)
     {
         $columns->idNotification = Column::AUTO_ID;
+        $columns->fkPlayer = Player::columns()->idPlayer;
         $columns->notificationType = Column::INTEGER + Column::NOT_NULL;
         $columns->accepted = Column::INTEGER + Column::NOT_NULL + Column::SIZE_1B;
     }
