@@ -98,7 +98,10 @@ grant_type=authorization_code
 
             setcookie(AuthRequired::TOKEN, $session->token, time() + 60 * 60 * 24 * 30, '/');
 
-            return Init::makeResponse($player, $organization);
+            $result = Init::makeResponse($player, $organization);
+            $result['token'] = $jsonResult;
+            $result['info'] = $jsonInfo;
+            return $result;
         } else {
             $url = 'https://accounts.google.com/o/oauth2/v2/auth?';
             $query = array(
