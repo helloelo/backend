@@ -99,9 +99,21 @@ grant_type=authorization_code
             setcookie(AuthRequired::TOKEN, $session->token, time() + 60 * 60 * 24 * 30, '/');
 
             return Init::makeResponse($player, $organization);
+        } else {
+            $url = 'https://accounts.google.com/o/oauth2/v2/auth?';
+            $query = array(
+                'response_type' => 'code',
+                'client_id' => self::$clientId,
+                'redirect_uri' => 'http://helloelo.tk/v1/login',
+                'scope' => 'email',
+                'state' => '',
+                'access_type' => 'online',
+                'prompt' => 'select_account',
+            );
+            $url .= http_build_query($query);
+            header("Location: " . $url);
+            exit();
         }
-
-        return array('bich' => 'one', 'get' => $_GET);
     }
 
 

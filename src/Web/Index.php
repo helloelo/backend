@@ -7,7 +7,6 @@ use Yaoi\Command;
 use Yaoi\Command\Application;
 use Yaoi\Command\Definition;
 use Yaoi\Database\Definition\Exception;
-use Yaoi\Undefined;
 
 class Index extends Command
 {
